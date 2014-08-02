@@ -1,8 +1,8 @@
 require "spec_helper"
 
-describe Mtrack do
+describe MTrack do
   it "has a version number" do
-    expect(Mtrack::VERSION).not_to be_nil
+    expect(MTrack::VERSION).not_to be_nil
   end
 
   it "does something useful" do

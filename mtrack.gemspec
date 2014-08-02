@@ -5,7 +5,7 @@ require "mtrack/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "mtrack"
-  spec.version       = Mtrack::VERSION
+  spec.version       = MTrack::VERSION
   spec.authors       = ["Gabriel de Oliveira"]
   spec.email         = ["deoliveira.gab@gmail.com"]
   spec.summary       = %q{TODO: Write a short summary. Required.}

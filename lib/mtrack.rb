@@ -1,5 +1,5 @@
 require "mtrack/version"
 
-module Mtrack
+module MTrack
   # Your code goes here...
 end
