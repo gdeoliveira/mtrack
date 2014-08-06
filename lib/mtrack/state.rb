@@ -20,7 +20,7 @@ module MTrack
     end
 
     def add_undefined(name)
-      @undefined.add name
+      undefined.add name
       name
     end
 
@@ -30,26 +30,19 @@ module MTrack
     end
 
     def delete_undefined(name)
-      @undefined.delete name
+      undefined.delete name
       name
     end
 
     def methods(key = nil)
       ret_val = merge_super_states key
       ret_val.merge context[key].tracked unless context[key].nil?
-      ret_val.subtract @undefined
-
-      ret_val
-    end
-
-    def undefined
-      @undefined.dup
+      ret_val.subtract undefined
     end
 
     private
 
-    attr_accessor :context, :super_states
-    attr_writer :undefined
+    attr_accessor :context, :super_states, :undefined
 
     def merge_super_states(key)
       super_states.each_with_object(Set.new) do |state, set|
