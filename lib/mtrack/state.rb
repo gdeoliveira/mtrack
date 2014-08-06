@@ -10,7 +10,7 @@ module MTrack
     end
 
     def [](key)
-      context[key] = Context.new
+      context[key] ||= Context.new
     end
 
     def add_super_state(state)
@@ -20,14 +20,17 @@ module MTrack
 
     def add_undefined(name)
       context.each {|k, v| v.add_undefined name }
+      name
     end
 
     def delete_tracked(name)
       context.each {|k, v| v.delete_tracked name }
+      name
     end
 
     def delete_undefined(name)
       context.each {|k, v| v.delete_undefined name }
+      name
     end
 
     def methods(key = nil)
