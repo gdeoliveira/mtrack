@@ -45,7 +45,7 @@ describe MTrack::State do
       subject { described_class.new }
 
       it "does not have tracked methods" do
-        expect(subject.methods).to be_empty
+        expect(subject.tracked).to be_empty
       end
     end
 
@@ -53,10 +53,10 @@ describe MTrack::State do
       subject { described_class.new sample_state }
 
       it "has super state's tracked methods" do
-        expect(sample_state.methods(:con_1)).to match_array(sample_context[:con_1][:tracked])
-        expect(sample_state.methods(:con_2)).to match_array(sample_context[:con_2][:tracked])
-        expect(subject.methods(:con_1)).to match_array(sample_state.methods(:con_1))
-        expect(subject.methods(:con_2)).to match_array(sample_state.methods(:con_2))
+        expect(sample_state.tracked(:con_1)).to match_array(sample_context[:con_1][:tracked])
+        expect(sample_state.tracked(:con_2)).to match_array(sample_context[:con_2][:tracked])
+        expect(subject.tracked(:con_1)).to match_array(sample_state.tracked(:con_1))
+        expect(subject.tracked(:con_2)).to match_array(sample_state.tracked(:con_2))
       end
     end
 
@@ -64,17 +64,17 @@ describe MTrack::State do
       subject { described_class.new(sample_state).tap {|s| s.add_super_state sample_state_2 } }
 
       it "merges tracked methods from all super states" do
-        expect(subject.methods(:con_1)).to match_array(sample_context[:con_1][:tracked])
-        expect(subject.methods(:con_2)).to match_array(sample_context[:con_2][:tracked] | sample_context_2[:con_2][:tracked])
-        expect(subject.methods(:con_3)).to match_array(sample_context_2[:con_3][:tracked])
+        expect(subject.tracked(:con_1)).to match_array(sample_context[:con_1][:tracked])
+        expect(subject.tracked(:con_2)).to match_array(sample_context[:con_2][:tracked] | sample_context_2[:con_2][:tracked])
+        expect(subject.tracked(:con_3)).to match_array(sample_context_2[:con_3][:tracked])
       end
 
       it "returns tracked methods that are not undefined" do
         subject.add_undefined :trk_3
-        expect(subject.methods(:con_2)).to match_array((sample_context[:con_2][:tracked] | sample_context_2[:con_2][:tracked]) - [:trk_3])
+        expect(subject.tracked(:con_2)).to match_array((sample_context[:con_2][:tracked] | sample_context_2[:con_2][:tracked]) - [:trk_3])
 
         subject.delete_undefined :trk_3
-        expect(subject.methods(:con_2)).to match_array((sample_context[:con_2][:tracked] | sample_context_2[:con_2][:tracked]))
+        expect(subject.tracked(:con_2)).to match_array((sample_context[:con_2][:tracked] | sample_context_2[:con_2][:tracked]))
       end
     end
   end
@@ -102,33 +102,33 @@ describe MTrack::State do
     end
 
     it "returns tracked methods that are not undefined" do
-      expect(subject.methods(:con_1)).to match_array(sample_context[:con_1][:tracked])
-      expect(subject.methods(:con_2)).to match_array(sample_context[:con_2][:tracked])
+      expect(subject.tracked(:con_1)).to match_array(sample_context[:con_1][:tracked])
+      expect(subject.tracked(:con_2)).to match_array(sample_context[:con_2][:tracked])
 
       subject.add_undefined :trk_2
-      expect(subject.methods(:con_1)).to match_array(sample_context[:con_1][:tracked] - [:trk_2])
-      expect(subject.methods(:con_2)).to match_array(sample_context[:con_2][:tracked] - [:trk_2])
+      expect(subject.tracked(:con_1)).to match_array(sample_context[:con_1][:tracked] - [:trk_2])
+      expect(subject.tracked(:con_2)).to match_array(sample_context[:con_2][:tracked] - [:trk_2])
 
       subject.delete_undefined :trk_2
-      expect(subject.methods(:con_1)).to match_array(sample_context[:con_1][:tracked])
-      expect(subject.methods(:con_2)).to match_array(sample_context[:con_2][:tracked])
+      expect(subject.tracked(:con_1)).to match_array(sample_context[:con_1][:tracked])
+      expect(subject.tracked(:con_2)).to match_array(sample_context[:con_2][:tracked])
     end
 
     context "with super state" do
       subject { sample_state.tap {|s| s.add_super_state sample_state_2 } }
 
       it "merges tracked methods from current and super states" do
-        expect(subject.methods(:con_1)).to match_array(sample_context[:con_1][:tracked])
-        expect(subject.methods(:con_2)).to match_array(sample_context[:con_2][:tracked] | sample_context_2[:con_2][:tracked])
-        expect(subject.methods(:con_3)).to match_array(sample_context_2[:con_3][:tracked])
+        expect(subject.tracked(:con_1)).to match_array(sample_context[:con_1][:tracked])
+        expect(subject.tracked(:con_2)).to match_array(sample_context[:con_2][:tracked] | sample_context_2[:con_2][:tracked])
+        expect(subject.tracked(:con_3)).to match_array(sample_context_2[:con_3][:tracked])
       end
 
       it "returns tracked methods that are not undefined" do
         subject.add_undefined :trk_3
-        expect(subject.methods(:con_2)).to match_array((sample_context[:con_2][:tracked] | sample_context_2[:con_2][:tracked]) - [:trk_3])
+        expect(subject.tracked(:con_2)).to match_array((sample_context[:con_2][:tracked] | sample_context_2[:con_2][:tracked]) - [:trk_3])
 
         subject.delete_undefined :trk_3
-        expect(subject.methods(:con_2)).to match_array((sample_context[:con_2][:tracked] | sample_context_2[:con_2][:tracked]))
+        expect(subject.tracked(:con_2)).to match_array((sample_context[:con_2][:tracked] | sample_context_2[:con_2][:tracked]))
       end
     end
   end

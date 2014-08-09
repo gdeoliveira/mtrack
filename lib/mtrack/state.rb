@@ -34,7 +34,7 @@ module MTrack
       name
     end
 
-    def methods(key = nil)
+    def tracked(key = nil)
       ret_val = merge_super_states key
       ret_val.merge context[key].tracked unless context[key].nil?
       ret_val.subtract undefined
@@ -46,7 +46,7 @@ module MTrack
 
     def merge_super_states(key)
       super_states.each_with_object(Set.new) do |state, set|
-        set.merge state.methods(key)
+        set.merge state.tracked(key)
       end
     end
   end

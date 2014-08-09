@@ -3,7 +3,7 @@ require "mtrack/state"
 module MTrack
   module Core
     def tracked_methods(key = nil)
-      @__mtrack__.methods key
+      @__mtrack__.tracked key
     end
 
     private
