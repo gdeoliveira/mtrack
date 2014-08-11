@@ -14,7 +14,7 @@ module MTrack
       if block_given?
         old_methods = public_instance_methods(false)
         begin
-          class_eval(&b)
+          module_eval(&b)
         ensure
           tracked = (public_instance_methods(false) - old_methods).to_set
           unless tracked.empty?
