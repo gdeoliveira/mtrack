@@ -16,7 +16,7 @@ module MTrack
         begin
           module_eval(&b)
         ensure
-          tracked = (public_instance_methods(false) - old_methods).to_set
+          tracked = (public_instance_methods(false) - old_methods).map(&:to_sym).to_set
           unless tracked.empty?
             context = [nil] if context.empty?
             context.each do |key|

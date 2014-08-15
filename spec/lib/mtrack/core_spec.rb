@@ -333,7 +333,7 @@ describe MTrack::Core do
           end
         end.to raise_error(RuntimeError, "Unexpected error")
 
-        expect(M.public_instance_methods(false)).to match_array([:meth_1, :meth_2])
+        expect(M.public_instance_methods(false).map(&:to_sym)).to match_array([:meth_1, :meth_2])
         expect(M.tracked_methods).to match_array([:meth_1, :meth_2])
       end
     end
@@ -354,7 +354,7 @@ describe MTrack::Core do
           end
         end.to raise_error(RuntimeError, "Unexpected error")
 
-        expect(C.public_instance_methods(false)).to match([:meth_1, :meth_2])
+        expect(C.public_instance_methods(false).map(&:to_sym)).to match_array([:meth_1, :meth_2])
         expect(C.tracked_methods).to match_array([:meth_1, :meth_2])
       end
     end
