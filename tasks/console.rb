@@ -1,10 +1,8 @@
-desc "Open a pry console with the gem loaded"
+desc "Open a pry console with the #{Bundler::GemHelper.gemspec.name} gem loaded"
 task :console do
   require "pry"
   require "byebug"
-  Dir[File.join(File.dirname(__FILE__), "..", "*.gemspec")].each do |file|
-    require Gem::Specification.load(file).name
-  end
+  require Bundler::GemHelper.gemspec.name
 
   Pry.start
 end
