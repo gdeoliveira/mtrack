@@ -1,4 +1,4 @@
 require "mtrack/module_mixin"
 require "mtrack/version"
 
-Module.include MTrack::ModuleMixin
+Module.module_eval { include MTrack::ModuleMixin }
