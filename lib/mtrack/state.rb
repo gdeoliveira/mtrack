@@ -1,17 +1,17 @@
 require "set"
 
-require "mtrack/state/context"
+require "mtrack/state/group"
 
 module MTrack
   class State
     def initialize(super_state = nil)
-      self.context = {}
+      self.groups = {}
       self.super_states = super_state ? Set[super_state] : Set.new
       self.undefined = Set.new
     end
 
     def [](key)
-      context[key] ||= Context.new
+      groups[key] ||= Group.new
     end
 
     def add_super_state(state)
@@ -25,7 +25,7 @@ module MTrack
     end
 
     def delete_tracked(name)
-      context.each {|k, v| v.delete_tracked name }
+      groups.each {|k, v| v.delete_tracked name }
       name
     end
 
@@ -36,13 +36,13 @@ module MTrack
 
     def tracked(key = nil)
       ret_val = merge_super_states key
-      ret_val.merge context[key].tracked unless context[key].nil?
+      ret_val.merge groups[key].tracked unless groups[key].nil?
       ret_val.subtract undefined
     end
 
     private
 
-    attr_accessor :context, :super_states, :undefined
+    attr_accessor :groups, :super_states, :undefined
 
     def merge_super_states(key)
       super_states.inject(Set.new) do |set, state|

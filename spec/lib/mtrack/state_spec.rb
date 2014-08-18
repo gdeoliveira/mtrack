@@ -31,7 +31,7 @@ describe MTrack::State do
   end
 
   it "adds a new context when using the `[]` operator" do
-    expect(new_context = subject[:new_context]).to be_a(MTrack::State::Context)
+    expect(new_context = subject[:new_context]).to be_a(MTrack::State::Group)
     expect(subject[:new_context]).to be(new_context)
   end
 

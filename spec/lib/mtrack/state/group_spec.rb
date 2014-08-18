@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe MTrack::State::Context do
+describe MTrack::State::Group do
   context "newly instantiated" do
     it "is initialized empty" do
       expect(subject.tracked).to be_empty

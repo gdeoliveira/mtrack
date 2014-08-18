@@ -7,7 +7,7 @@ module MTrack
   module ModuleMixin
     private
 
-    def track_methods(*context, &b)
+    def track_methods(*groups, &b)
       @__mtrack__ ||= State.new
       extend Core
 
@@ -18,9 +18,9 @@ module MTrack
         ensure
           tracked = (public_instance_methods(false) - old_methods).map(&:to_sym).to_set
           unless tracked.empty?
-            context = [nil] if context.empty?
-            context.each do |key|
-              @__mtrack__[key].merge_tracked tracked
+            groups = [nil] if groups.empty?
+            groups.each do |group|
+              @__mtrack__[group].merge_tracked tracked
             end
           end
         end

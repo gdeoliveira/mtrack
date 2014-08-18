@@ -2,7 +2,7 @@ require "set"
 
 module MTrack
   class State
-    class Context
+    class Group
       def initialize
         self.tracked = Set.new
       end
