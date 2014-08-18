@@ -8,5 +8,14 @@ unless ENV["COVERAGE"].nil?
     add_filter "/spec/"
   end
 end
+
 $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
 require "mtrack"
+
+RSpec.configure do |config|
+  config.color = true
+  config.order = :rand
+  config.expect_with :rspec do |c|
+    c.syntax = :expect
+  end
+end
