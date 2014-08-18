@@ -1,10 +1,15 @@
 # MTrack
 
+[![Gem Version](http://img.shields.io/gem/v/mtrack.svg)][gem]
 [![Build Status](http://img.shields.io/travis/gdeoliveira/mtrack.svg)][travis]
 [![Code Climate](http://img.shields.io/codeclimate/github/gdeoliveira/mtrack.svg)][codeclimate]
+[![Test Coverage](http://img.shields.io/codeclimate/coverage/github/gdeoliveira/mtrack.svg)][codeclimate]
+[![Inline docs](http://inch-ci.org/github/gdeoliveira/mtrack.svg?branch=master)][inch-ci]
 
+[gem]: https://rubygems.org/gems/mtrack
 [travis]: http://travis-ci.org/gdeoliveira/mtrack
 [codeclimate]: https://codeclimate.com/github/gdeoliveira/mtrack
+[inch-ci]: http://inch-ci.org/github/gdeoliveira/mtrack
 
 MTrack extends the functionality of Modules and Classes and enables them to
 define public methods within groups. These methods can then be queried back even
@@ -95,7 +100,7 @@ MySubClass.tracked_methods :integers  #=> #<Set: {:one, :three, :two, :four}>
 ### Simple State Machine
 
 We'll create a simple state machine using MTrack. First, let's create an
-abstraction of the state machine.
+abstraction for the state machine.
 
 ```ruby
 require "mtrack"
