@@ -13,14 +13,14 @@ module MTrack
 
     ##
     # call-seq:
-    #   track_methods(*group_names) => set
-    #   track_methods(*group_names) {|| ... } => set
+    #   track_methods(group_name = nil) => set
+    #   track_methods(group_name = nil) {|| ... } => set
     #
     # Sets up an MTrack::State instance for this Class or Module and extends it
     # using MTrack::Core.
     #
     # If a block is provided all the methods defined within the block will be
-    # tracked by the groups passed through the optional +group_names+ parameter.
+    # tracked under the optional +group_name+ parameter.
     #
     # Returns a set containing the methods that were defined within the block or
     # an empty set otherwise.
@@ -28,11 +28,11 @@ module MTrack
     #   class C
     #     track_methods do
     #       def method_1; end
-    #       track_methods(:inner_group_1, :inner_group_2) { def method_2; end }
+    #       track_methods(:inner_group_1) { def method_2; end }
     #       def method_3; end
     #     end
     #   end  #=> #<Set: {:method_1, :method_2, :method_3}>
-    def track_methods(*group_names, &b)
+    def track_methods(group_name = nil, &b)
       @__mtrack__ ||= State.new
       extend Core
 
@@ -42,12 +42,7 @@ module MTrack
           module_eval(&b)
         ensure
           tracked = (public_instance_methods(false) - old_methods).map(&:to_sym).to_set
-          unless tracked.empty?
-            group_names = [nil] if group_names.empty?
-            group_names.each do |group_name|
-              @__mtrack__[group_name].merge_tracked tracked
-            end
-          end
+          @__mtrack__[group_name].merge_tracked tracked unless tracked.empty?
         end
       end
 
