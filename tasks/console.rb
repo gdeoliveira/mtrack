@@ -1,7 +1,13 @@
-desc "Open a pry console with the #{Bundler::GemHelper.gemspec.name} gem loaded"
+desc "Open a console with the #{Bundler::GemHelper.gemspec.name} gem loaded"
 task :console do
-  require "pry"
   require Bundler::GemHelper.gemspec.name
 
-  Pry.start
+  if RUBY_VERSION >= "1.9"
+    require "pry"
+    Pry.start
+  else
+    require "irb"
+    ARGV.clear
+    IRB.start
+  end
 end
