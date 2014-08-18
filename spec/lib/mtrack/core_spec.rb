@@ -319,7 +319,7 @@ describe MTrack::Core do
   context "partially defined" do
     context "module" do
       it "tracks methods" do
-        M = Module.new
+        M = ::Module.new
 
         expect do
           M.module_eval do
@@ -340,7 +340,7 @@ describe MTrack::Core do
 
     context "class" do
       it "tracks methods" do
-        C = Class.new
+        C = ::Class.new
 
         expect do
           C.class_eval do
