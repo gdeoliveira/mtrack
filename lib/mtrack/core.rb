@@ -39,6 +39,7 @@ module MTrack
       submodule.instance_eval do
         if @__mtrack__.nil?
           @__mtrack__ = State.new(state)
+          extend Core
         else
           @__mtrack__.add_super_state state
         end

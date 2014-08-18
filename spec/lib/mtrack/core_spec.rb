@@ -319,10 +319,10 @@ describe MTrack::Core do
   context "partially defined" do
     context "module" do
       it "tracks methods" do
-        M = ::Module.new
+        m = ::Module.new
 
         expect do
-          M.module_eval do
+          m.module_eval do
             track_methods do
               define_method :meth_1, METHOD_DEFINITION
               define_method :meth_2, METHOD_DEFINITION
@@ -333,17 +333,17 @@ describe MTrack::Core do
           end
         end.to raise_error(RuntimeError, "Unexpected error")
 
-        expect(M.public_instance_methods(false).map(&:to_sym)).to match_array([:meth_1, :meth_2])
-        expect(M.tracked_methods).to match_array([:meth_1, :meth_2])
+        expect(m.public_instance_methods(false).map(&:to_sym)).to match_array([:meth_1, :meth_2])
+        expect(m.tracked_methods).to match_array([:meth_1, :meth_2])
       end
     end
 
     context "class" do
       it "tracks methods" do
-        C = ::Class.new
+        c = ::Class.new
 
         expect do
-          C.class_eval do
+          c.class_eval do
             track_methods do
               define_method :meth_1, METHOD_DEFINITION
               define_method :meth_2, METHOD_DEFINITION
@@ -354,9 +354,24 @@ describe MTrack::Core do
           end
         end.to raise_error(RuntimeError, "Unexpected error")
 
-        expect(C.public_instance_methods(false).map(&:to_sym)).to match_array([:meth_1, :meth_2])
-        expect(C.tracked_methods).to match_array([:meth_1, :meth_2])
+        expect(c.public_instance_methods(false).map(&:to_sym)).to match_array([:meth_1, :meth_2])
+        expect(c.tracked_methods).to match_array([:meth_1, :meth_2])
       end
+    end
+  end
+
+  context "inclusion" do
+    it "adds #{described_class} to submodule" do
+      bm_1 = base_module_1
+      m = ::Module.new.module_eval { include bm_1 }
+      expect(m.tracked_methods).to match_array([:meth])
+    end
+  end
+
+  context "inheritance" do
+    it "adds #{described_class} to subclass" do
+      c = ::Class.new(super_class)
+      expect(c.tracked_methods).to match_array([:meth])
     end
   end
 end
