@@ -8,8 +8,14 @@ Gem::Specification.new do |spec|
   spec.version       = MTrack::VERSION
   spec.authors       = ["Gabriel de Oliveira"]
   spec.email         = ["deoliveira.gab@gmail.com"]
-  spec.summary       = %q{Group and track methods on modules and classes.}
-  spec.description   = spec.summary
+  spec.summary       = %q{Group and track methods on classes and modules.}
+  spec.description   = <<-EOS.strip.gsub(/\n/, "").gsub(/\s{2,}/, " ")
+                         MTrack extends the functionality of modules and
+                         classes and enables them to define public methods
+                         within groups. These methods can then be queried back
+                         even through a hierarchy of inclusion and/or
+                         inheritance.
+                       EOS
   spec.homepage      = "https://github.com/gdeoliveira/mtrack"
   spec.license       = "MIT"
 
