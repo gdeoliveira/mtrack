@@ -4,11 +4,13 @@
 [![Build Status](http://img.shields.io/travis/gdeoliveira/mtrack.svg)][travis]
 [![Code Climate](http://img.shields.io/codeclimate/github/gdeoliveira/mtrack.svg)][codeclimate]
 [![Test Coverage](http://img.shields.io/codeclimate/coverage/github/gdeoliveira/mtrack.svg)][codeclimate]
+[![Dependency Status](https://gemnasium.com/gdeoliveira/mtrack.svg)][gemnasium]
 [![Inline docs](http://inch-ci.org/github/gdeoliveira/mtrack.svg?branch=master)][inch-ci]
 
 [gem]: https://rubygems.org/gems/mtrack
 [travis]: http://travis-ci.org/gdeoliveira/mtrack
 [codeclimate]: https://codeclimate.com/github/gdeoliveira/mtrack
+[gemnasium]: https://gemnasium.com/gdeoliveira/mtrack
 [inch-ci]: http://inch-ci.org/github/gdeoliveira/mtrack
 
 MTrack extends the functionality of Modules and Classes and enables them to
