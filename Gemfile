@@ -1,14 +1,17 @@
 source "https://rubygems.org"
 gemspec
 
-gem "rake", :require => false
+gem "rake"
 
 group :development do
-  gem "pry", :require => false
+  gem "byebug"
+  gem "guard-rspec"
+  gem "libnotify"
+  gem "pry"
 end
 
 group :test do
-  gem "codeclimate-test-reporter", :require => false
-  gem "rspec", :require => false
-  gem "simplecov", :require => false
+  gem "codeclimate-test-reporter"
+  gem "rspec"
+  gem "simplecov"
 end

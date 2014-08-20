@@ -3,10 +3,18 @@ task :console do
   require Bundler::GemHelper.gemspec.name
 
   if RUBY_VERSION >= "1.9"
-    require "pry"
-    Pry.start
+    begin
+      require "pry"
+    rescue LoadError
+      require "irb"
+    end
   else
     require "irb"
+  end
+
+  if defined? Pry
+    Pry.start
+  else
     ARGV.clear
     IRB.start
   end
