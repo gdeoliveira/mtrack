@@ -8,8 +8,9 @@ group :development do
   gem "pry", "~> 0.10.1"
 end
 
-group :test do
+group :development, :test do
   gem "codeclimate-test-reporter", "~> 0.4.0"
+  gem "rake", "~> 10.3.2"
   gem "rspec", "~> 3.0.0"
   gem "simplecov", "~> 0.9.0"
 end
