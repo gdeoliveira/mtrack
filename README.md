@@ -11,6 +11,7 @@
 [travis]: http://travis-ci.org/gdeoliveira/mtrack
 [codeclimate]: https://codeclimate.com/github/gdeoliveira/mtrack
 [gemnasium]: https://gemnasium.com/gdeoliveira/mtrack
+[gemnasium]: https://gemnasium.com/gdeoliveira/mtrack#development-dependencies
 [inch-ci]: http://inch-ci.org/github/gdeoliveira/mtrack
 
 MTrack extends the functionality of Modules and Classes and enables them to
