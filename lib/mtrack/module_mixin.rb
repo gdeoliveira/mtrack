@@ -35,18 +35,8 @@ module MTrack
     def track_methods(group_name = nil, &b)
       @__mtrack__ ||= State.new
       extend Core
-
-      if block_given?
-        old_methods = public_instance_methods(false)
-        begin
-          module_eval(&b)
-        ensure
-          tracked = (public_instance_methods(false) - old_methods).map(&:to_sym).to_set
-          @__mtrack__[group_name].merge_tracked tracked unless tracked.empty?
-        end
-      end
-
-      tracked || Set.new
+      return track_methods_with_block(group_name, &b) if block_given?
+      Set.new
     end
   end
 end

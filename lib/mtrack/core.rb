@@ -73,5 +73,18 @@ module MTrack
       @__mtrack__.delete_tracked name
       @__mtrack__.add_undefined name
     end
+
+    def track_methods_with_block(group_name, &b)
+      old_methods = public_instance_methods(false)
+
+      begin
+        module_eval(&b)
+      ensure
+        tracked = (public_instance_methods(false) - old_methods).map(&:to_sym).to_set
+        @__mtrack__[group_name].merge_tracked tracked unless tracked.empty?
+      end
+
+      tracked
+    end
   end
 end
