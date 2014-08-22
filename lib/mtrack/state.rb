@@ -14,6 +14,9 @@ module MTrack
     #
     # Creates a new State instance. An optional +super_state+ parameter can be
     # passed that will be added to #super_states.
+    #
+    #   super_state = MTrack::State.new
+    #   sub_state = MTrack::State.new(super_state)
     def initialize(super_state = nil)
       self.groups = {}
       self.super_states = super_state ? Set[super_state] : Set.new
@@ -24,17 +27,18 @@ module MTrack
     # call-seq:
     #   state[group_name] => group
     #
-    # Returns a particular group in #groups. If the group doesn't exist it will
-    # be created.
+    # Accepts a +group_name+ passed as a parameter.
+    #
+    # Returns an existing or a new group associated with +group_name+.
     def [](group_name)
       groups[group_name] ||= Group.new
     end
 
     ##
     # call-seq:
-    #   add_super_state(state) => state
+    #   add_super_state(state)
     #
-    # Adds a new state to #super_states.
+    # Adds a new +state+ to the #super_states set.
     def add_super_state(state)
       super_states.add state
       state
@@ -42,7 +46,7 @@ module MTrack
 
     ##
     # call-seq:
-    #   add_undefined(name) => name
+    #   add_undefined(name)
     #
     # Adds +name+ to the #undefined methods set.
     def add_undefined(name)
@@ -52,7 +56,7 @@ module MTrack
 
     ##
     # call-seq:
-    #   delete_tracked(name) => name
+    #   delete_tracked(name)
     #
     # Removes method +name+ from all #groups.
     def delete_tracked(name)
@@ -62,7 +66,7 @@ module MTrack
 
     ##
     # call-seq:
-    #   delete_undefined(name) => name
+    #   delete_undefined(name)
     #
     # Removes +name+ from the #undefined methods set.
     def delete_undefined(name)
@@ -74,9 +78,7 @@ module MTrack
     # call-seq:
     #   tracked(group_name = nil) => set
     #
-    # Returns a set containing the currently tracked methods. An optional
-    # +group_name+ parameter can be passed to get the tracked methods of groups
-    # othen than the default +nil+ group.
+    # Returns a set containing the currently tracked methods for a +group_name+.
     def tracked(group_name = nil)
       ret_val = merge_super_states group_name
       ret_val.merge groups[group_name].tracked unless groups[group_name].nil?

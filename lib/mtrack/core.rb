@@ -13,9 +13,7 @@ module MTrack
     # call-seq:
     #   tracked_methods(group_name = nil) => set
     #
-    # Returns a set containing the currently tracked methods. An optional
-    # +group_name+ parameter can be passed to get the tracked methods of groups
-    # othen than the default +nil+ group.
+    # Returns a set containing the currently tracked methods for a +group_name+.
     #
     #   class C
     #     track_methods :my_group do
