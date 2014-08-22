@@ -36,9 +36,11 @@ module MTrack
 
     ##
     # call-seq:
-    #   add_super_state(state)
+    #   add_super_state(state) => state
     #
     # Adds a new +state+ to the #super_states set.
+    #
+    # Returns passed +state+.
     def add_super_state(state)
       super_states.add state
       state
@@ -46,9 +48,11 @@ module MTrack
 
     ##
     # call-seq:
-    #   add_undefined(name)
+    #   add_undefined(name) => name
     #
     # Adds +name+ to the #undefined methods set.
+    #
+    # Returns passed +name+.
     def add_undefined(name)
       undefined.add name
       name
@@ -56,9 +60,11 @@ module MTrack
 
     ##
     # call-seq:
-    #   delete_tracked(name)
+    #   delete_tracked(name) => name
     #
     # Removes method +name+ from all #groups.
+    #
+    # Returns passed +name+.
     def delete_tracked(name)
       groups.each {|k, v| v.delete_tracked name }
       name
@@ -66,9 +72,11 @@ module MTrack
 
     ##
     # call-seq:
-    #   delete_undefined(name)
+    #   delete_undefined(name) => name
     #
     # Removes +name+ from the #undefined methods set.
+    #
+    # Returns passed +name+.
     def delete_undefined(name)
       undefined.delete name
       name

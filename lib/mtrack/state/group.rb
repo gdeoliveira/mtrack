@@ -18,9 +18,11 @@ module MTrack
 
       ##
       # call-seq:
-      #   delete_tracked(name)
+      #   delete_tracked(name) => name
       #
       # Removes method +name+ from tracked methods.
+      #
+      # Returns passed +name+.
       def delete_tracked(name)
         @tracked.delete name
         name
@@ -28,9 +30,11 @@ module MTrack
 
       ##
       # call-seq:
-      #   merge_tracked(names)
+      #   merge_tracked(names) => names
       #
       # Adds method +names+ to tracked methods.
+      #
+      # Returns passed +names+.
       def merge_tracked(names)
         @tracked.merge names
         names
