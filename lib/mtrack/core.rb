@@ -74,6 +74,14 @@ module MTrack
       @__mtrack__.add_undefined name
     end
 
+    ##
+    # call-seq:
+    #   track_methods_with_block(group_name) {|| ... } => set
+    #
+    # All the methods defined within the block will be tracked under the
+    # +group_name+ parameter.
+    #
+    # Returns a set containing the methods that were defined within the block.
     def track_methods_with_block(group_name, &b)
       old_methods = public_instance_methods(false)
 
