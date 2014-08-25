@@ -1,7 +1,6 @@
 require "set"
 
 require "mtrack/core"
-require "mtrack/state"
 
 module MTrack
 
@@ -33,7 +32,6 @@ module MTrack
     #     end
     #   end  #=> #<Set: {:method_1, :method_2, :method_3}>
     def track_methods(group_name = nil, &b)
-      @__mtrack__ ||= State.new
       extend Core
       return track_methods_with_block(group_name, &b) if block_given?
       Set.new

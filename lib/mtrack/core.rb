@@ -8,6 +8,15 @@ module MTrack
   # it will extend Modules and Classes that include a Module that is tracking
   # methods and Classes that inherit from a Class that is tracking methods.
   module Core
+    class << self
+      private
+
+      ##
+      # Initializes a State variable on the Class or Module that extended Core.
+      def extended(submodule)
+        submodule.instance_eval { @__mtrack__ ||= State.new }
+      end
+    end
 
     ##
     # call-seq:
@@ -35,12 +44,8 @@ module MTrack
     def included(submodule)
       state = @__mtrack__
       submodule.instance_eval do
-        if @__mtrack__.nil?
-          @__mtrack__ = State.new(state)
-          extend Core
-        else
-          @__mtrack__.add_super_state state
-        end
+        extend Core
+        @__mtrack__.add_super_state state
       end
     end
 
@@ -49,7 +54,10 @@ module MTrack
     # current Class.
     def inherited(subclass)
       state = @__mtrack__
-      subclass.instance_eval { @__mtrack__ = State.new(state) }
+      subclass.instance_eval do
+        extend Core
+        @__mtrack__.add_super_state state
+      end
     end
 
     ##

@@ -10,16 +10,12 @@ module MTrack
 
     ##
     # call-seq:
-    #   new(super_state = nil) => new_state
+    #   new() => new_state
     #
-    # Creates a new State instance. An optional +super_state+ parameter can be
-    # passed that will be added to #super_states.
-    #
-    #   super_state = MTrack::State.new
-    #   sub_state = MTrack::State.new(super_state)
-    def initialize(super_state = nil)
+    # Creates a new State instance.
+    def initialize()
       self.groups = {}
-      self.super_states = super_state ? Set[super_state] : Set.new
+      self.super_states = Set.new
       self.undefined = Set.new
     end
 

@@ -50,7 +50,7 @@ describe MTrack::State do
     end
 
     context "with super state" do
-      subject { described_class.new sample_state }
+      subject { described_class.new.tap {|s| s.add_super_state sample_state } }
 
       it "has super state's tracked methods" do
         expect(sample_state.tracked(:con_1)).to match_array(sample_group[:con_1][:tracked])
@@ -61,7 +61,12 @@ describe MTrack::State do
     end
 
     context "with multiple super states" do
-      subject { described_class.new(sample_state).tap {|s| s.add_super_state sample_state_2 } }
+      subject do
+        described_class.new.tap do |s|
+          s.add_super_state sample_state
+          s.add_super_state sample_state_2
+        end
+      end
 
       it "merges tracked methods from all super states" do
         expect(subject.tracked(:con_1)).to match_array(sample_group[:con_1][:tracked])
