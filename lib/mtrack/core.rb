@@ -52,13 +52,7 @@ module MTrack
     ##
     # Sets this state as a super-state of the Class that has inherited from the
     # current Class.
-    def inherited(subclass)
-      state = @__mtrack__
-      subclass.instance_eval do
-        extend Core
-        @__mtrack__.add_super_state state
-      end
-    end
+    alias_method :inherited, :included
 
     ##
     # Allows method +name+ to be displayed on #tracked_methods once again after
