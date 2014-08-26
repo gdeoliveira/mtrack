@@ -42,8 +42,7 @@ module MTrack
       # If a block is provided all the methods defined within the block will be
       # tracked under the +group_name+ parameter.
       #
-      # Returns a set containing the methods that were defined within the block
-      # or an empty set otherwise.
+      # Returns a set containing the methods that were defined within the block.
       def track_methods_for(mod, group_name, &b)
         old_methods = mod.public_instance_methods false
 
@@ -71,8 +70,7 @@ module MTrack
     # If a block is provided all the methods defined within the block will be
     # tracked under the optional +group_name+ parameter.
     #
-    # Returns a set containing the methods that were defined within the block or
-    # an empty set otherwise.
+    # Returns a set containing the methods that were defined within the block.
     #
     #   class C
     #     track_methods do
