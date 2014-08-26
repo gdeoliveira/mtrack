@@ -13,16 +13,23 @@ module MTrack
 
       ##
       # call-seq:
-      #   save_new_methods(mod, group_name, old_methods) => set
+      #   newly_defined_methods(mod, old_methods) => set
       #
-      # Saves the difference between +mod+'s currently defined public methods
-      # and +old_methods+ and stores them under a +group_name+.
+      # Calculates the difference between +mod+'s currently defined public
+      # methods and +old_methods+.
       #
-      # Returns a set containing the methods that were saved.
-      def save_new_methods(mod, group_name, old_methods)
-        (mod.public_instance_methods(false) - old_methods).map(&:to_sym).to_set.tap do |tracked|
-          mod.instance_variable_get(:@__mtrack__)[group_name].merge_tracked tracked unless tracked.empty?
-        end
+      # Returns a set with the result.
+      def newly_defined_methods(mod, old_methods)
+        (mod.public_instance_methods(false) - old_methods).map(&:to_sym).to_set
+      end
+
+      ##
+      # call-seq:
+      #   save_tracked_methods(mod, group_name, tracked)
+      #
+      # Saves +tracked+ methods for +mod+ under a +group_name+.
+      def save_tracked_methods(mod, group_name, tracked)
+        mod.instance_variable_get(:@__mtrack__)[group_name].merge_tracked tracked unless tracked.empty?
       end
 
       ##
@@ -43,7 +50,8 @@ module MTrack
         begin
           mod.module_eval &b if block_given?
         ensure
-          tracked = save_new_methods(mod, group_name, old_methods)
+          tracked = newly_defined_methods(mod, old_methods)
+          save_tracked_methods(mod, group_name, tracked)
         end
 
         tracked
