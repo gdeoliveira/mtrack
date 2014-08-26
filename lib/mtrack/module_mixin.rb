@@ -11,15 +11,21 @@ module MTrack
     class << self
       private
 
+      def save_tracked_methods(mod, group_name, old_methods)
+        tracked = (mod.public_instance_methods(false) - old_methods).map(&:to_sym).to_set
+        mod.instance_variable_get(:@__mtrack__)[group_name].merge_tracked tracked unless tracked.empty?
+        tracked
+      end
+
       ##
       # call-seq:
-      #   track_methods_for(mod, group_name = nil) => set
-      #   track_methods_for(mod, group_name = nil) {|| ... } => set
+      #   track_methods_for(mod, group_name) => set
+      #   track_methods_for(mod, group_name) {|| ... } => set
       #
       # Sets up an MTrack::State instance for +mod+.
       #
       # If a block is provided all the methods defined within the block will be
-      # tracked under the optional +group_name+ parameter.
+      # tracked under the +group_name+ parameter.
       #
       # Returns a set containing the methods that were defined within the block
       # or an empty set otherwise.
@@ -42,8 +48,7 @@ module MTrack
         begin
           mod.module_eval(&b)
         ensure
-          tracked = (mod.public_instance_methods(false) - old_methods).map(&:to_sym).to_set
-          mod.instance_variable_get(:@__mtrack__)[group_name].merge_tracked tracked unless tracked.empty?
+          tracked = save_tracked_methods(mod, group_name, old_methods)
         end
 
         tracked
