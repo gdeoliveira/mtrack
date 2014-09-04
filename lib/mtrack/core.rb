@@ -39,8 +39,8 @@ module MTrack
     private
 
     ##
-    # Sets this state as a super-state of the Class or Module that has included
-    # the current Module.
+    # Sets this state as a super-state of the +submodule+ (Class or Module) that
+    # has included the current Module.
     def included(submodule)
       state = @__mtrack__
       submodule.instance_eval do
@@ -50,8 +50,8 @@ module MTrack
     end
 
     ##
-    # Sets this state as a super-state of the Class that has inherited from the
-    # current Class.
+    # Sets this state as a super-state of the +submodule+ (Class) that has
+    # inherited from the current Class.
     alias_method :inherited, :included
 
     ##
