@@ -12,9 +12,15 @@ module MTrack
       private
 
       ##
+      # call-seq:
+      #   extended(submodule) => submodule
+      #
       # Initializes a State variable on the Class or Module that extended Core.
+      #
+      # Returns passed +submodule+.
       def extended(submodule)
         submodule.instance_eval { @__mtrack__ ||= State.new }
+        submodule
       end
     end
 
@@ -39,38 +45,64 @@ module MTrack
     private
 
     ##
+    # call-seq:
+    #   included(submodule) => submodule
+    #
     # Sets this state as a super-state of the +submodule+ (Class or Module) that
     # has included the current Module.
+    #
+    # Returns passed +submodule+.
     def included(submodule)
       state = @__mtrack__
       submodule.instance_eval do
         extend Core
         @__mtrack__.add_super_state state
       end
+      submodule
     end
 
     ##
+    # call-seq:
+    #   inherited(submodule) => submodule
+    #
     # Sets this state as a super-state of the +submodule+ (Class) that has
     # inherited from the current Class.
+    #
+    # Returns passed +submodule+.
     alias_method :inherited, :included
 
     ##
+    # call-seq:
+    #   method_added(name) => name
+    #
     # Allows method +name+ to be displayed on #tracked_methods once again after
     # being disabled by a call to #method_undefined.
+    #
+    # Returns passed +name+.
     def method_added(name)
       @__mtrack__.delete_undefined name
     end
 
     ##
+    # call-seq:
+    #   method_removed(name) => name
+    #
     # Stops tracking method +name+ in the current Class or Module.
+    #
+    # Returns passed +name+.
     def method_removed(name)
       @__mtrack__.delete_tracked name
     end
 
     ##
+    # call-seq:
+    #   method_undefined(name) => name
+    #
     # Stops tracking method +name+ in the current Class or Module and prevents
     # homonymous methods tracked in super-states from being displayed as
     # #tracked_methods.
+    #
+    # Returns passed +name+.
     def method_undefined(name)
       @__mtrack__.delete_tracked name
       @__mtrack__.add_undefined name

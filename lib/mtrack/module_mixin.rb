@@ -25,11 +25,14 @@ module MTrack
 
       ##
       # call-seq:
-      #   save_tracked_methods(mod, group_name, tracked)
+      #   save_tracked_methods(mod, group_name, tracked) => nil
       #
       # Saves +tracked+ methods for +mod+ under a +group_name+.
+      #
+      # Returns a +nil+ value.
       def save_tracked_methods(mod, group_name, tracked)
         mod.instance_variable_get(:@__mtrack__)[group_name].merge_tracked tracked unless tracked.empty?
+        nil
       end
 
       ##
