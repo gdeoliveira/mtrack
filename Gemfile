@@ -12,5 +12,5 @@ group :development, :test do
   gem "codeclimate-test-reporter", "~> 0.4.0"
   gem "rake", "~> 10.3.2"
   gem "rspec", "~> 3.1.0"
-  gem "simplecov", "~> 0.9.0"
+  gem "simplecov", "~> 0.9.1"
 end
