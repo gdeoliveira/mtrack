@@ -4,6 +4,7 @@
 # even through a hierarchy of inclusion and/or inheritance.
 #
 #   module M
+#     extend MTrack::Mixin
 #     track_methods { def method_1; end }
 #   end
 #
