@@ -1,2 +1,2 @@
-require "mtrack/state"
+require "mtrack/mixin"
 require "mtrack/version"
