@@ -6,9 +6,9 @@ describe MTrack::Mixin do
   describe "#track_methods" do
     it "is added after extending #{described_class}" do
       mod = ::Module.new
-      expect(mod.private_methods).not_to include(:track_methods)
+      expect(mod.private_methods.map(&:to_sym)).not_to include(:track_methods)
       mod.module_eval { extend MTrack::Mixin }
-      expect(mod.private_methods).to include(:track_methods)
+      expect(mod.private_methods.map(&:to_sym)).to include(:track_methods)
     end
 
     context "no block given" do
