@@ -42,6 +42,8 @@ To track a group of methods within a Module (or a Class).
 require "mtrack"
 
 module Stooges
+  extend MTrack::Mixin
+
   def shemp; end
 
   track_methods do
@@ -60,6 +62,8 @@ Methods can be grouped using an optional name.
 require "mtrack"
 
 module Numbers
+  extend MTrack::Mixin
+
   def zero; end
 
   track_methods :integers do
@@ -109,6 +113,8 @@ abstraction for the state machine.
 require "mtrack"
 
 class SimpleStateMachine
+  extend MTrack::Mixin
+
   class << self
     private
 
