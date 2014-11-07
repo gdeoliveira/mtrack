@@ -1,15 +1,16 @@
 language: ruby
 rvm:
-  - ruby-head
-  - 2.1
-  - 2.0
-  - 1.9.3
-  - 1.9.2
-  - 1.8.7
-  - jruby-head
-  - jruby-1.7
-  - jruby-1.6
-bundler_args: --without development
+- ruby-head
+- 2.1
+- 2.0
+- 1.9.3
+- 1.9.2
+- 1.8.7
+- jruby-head
+- jruby-1.7
+- jruby-1.6
+bundler_args: "--without development"
 addons:
   code_climate:
-    repo_token: cc41eb6449075390a8bdb804fa3ff5865a7fbf22384fcd1757730b702eefdb0a
+    repo_token:
+      secure: HdKw+GBs77+DnKb9oRTaARf8GuTAaKedEGvxh2W6z8NsxhbSVY5hJAYWdqg/8r2Aywqui7+8OH1bJ90PixipgJjIlDu8uamaiYfjScPMk5VPl0UOtOo/cAo4F79d1lHsbymtuoZI8Mat7FE0//d1QorruZ1lsXsKPrWWPi9byV0=
