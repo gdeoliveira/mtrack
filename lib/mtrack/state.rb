@@ -3,17 +3,15 @@ require "set"
 require "mtrack/state/group"
 
 module MTrack
-
   ##
   # Holds the internal state of tracked methods on Modules and Classes.
   class State
-
     ##
     # call-seq:
     #   new() => new_state
     #
     # Creates a new State instance.
-    def initialize()
+    def initialize
       self.groups = {}
       self.super_states = Set.new
       self.undefined = Set.new
@@ -62,7 +60,7 @@ module MTrack
     #
     # Returns passed +name+.
     def delete_tracked(name)
-      groups.each {|k, v| v.delete_tracked name }
+      groups.values.each {|v| v.delete_tracked name }
       name
     end
 

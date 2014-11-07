@@ -2,11 +2,9 @@ require "set"
 
 module MTrack
   class State
-
     ##
     # Handles method information for each group in MTrack::State#groups.
     class Group
-
       ##
       # call-seq:
       #   new() => new_group

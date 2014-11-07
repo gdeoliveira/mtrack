@@ -60,7 +60,7 @@ module MTrack
         old_methods = mod.public_instance_methods false
 
         begin
-          mod.module_eval &b if block_given?
+          mod.module_eval(&b) if block_given?
         ensure
           tracked = newly_defined_methods(mod, old_methods)
           save_tracked_methods(mod, group_name, tracked)
