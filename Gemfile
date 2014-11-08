@@ -7,7 +7,7 @@ group :development do
   gem "guard-rubocop", "~> 1.2.0"
   gem "libnotify", "~> 0.8.4"
   gem "pry", "~> 0.10.1"
-  gem "rubocop", "~> 0.27.0"
+  gem "rubocop", "~> 0.27.1"
 end
 
 group :development, :test do

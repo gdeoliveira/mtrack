@@ -5,6 +5,8 @@ guard :rspec, :cmd => "rspec -fd" do
 end
 
 guard :rubocop do
-  watch(/.+\.rb$/)
-  watch(/(?:.+\/)?\.rubocop\.yml$/) {|m| File.dirname(m[0]) }
+  watch(/^.+\.rb$/)
+  watch(/^(?:.+\/)?\.rubocop\.yml$/) {|m| File.dirname(m[0]) }
+  watch(/^(?:.+\/)?.+\.gemspec$/)
+  watch(/^(?:.+\/)?(?:Gem|Rake)file$/)
 end
