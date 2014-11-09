@@ -3,7 +3,7 @@ require "mtrack/state"
 module MTrack
   ##
   # This module provides the #track_methods method to Classes or Modules that
-  # mix it in. It also enables the extended Class or Module to pass tracked
+  # extend it. It also enables the extended Class or Module to pass tracked
   # methods to its subclasses and submodules.
   module Mixin
     class << self
@@ -22,6 +22,13 @@ module MTrack
         submodule
       end
 
+      ##
+      # call-seq:
+      #   init_heir(submodule, state) => submodule
+      #
+      # Sets +state+ as the super-state of +submodule+ (Class or Module).
+      #
+      # Returns passed +submodule+.
       def init_heir(submodule, state)
         submodule.instance_eval do
           extend Mixin
