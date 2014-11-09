@@ -17,7 +17,16 @@ module MTrack
       #
       # Returns passed +submodule+.
       def extended(submodule)
+        super
         submodule.instance_eval { @__mtrack__ ||= State.new }
+        submodule
+      end
+
+      def init_heir(submodule, state)
+        submodule.instance_eval do
+          extend Mixin
+          @__mtrack__.add_super_state state
+        end
         submodule
       end
 
@@ -102,12 +111,8 @@ module MTrack
     #
     # Returns passed +submodule+.
     def included(submodule)
-      state = @__mtrack__
-      submodule.instance_eval do
-        extend Mixin
-        @__mtrack__.add_super_state state
-      end
-      submodule
+      super
+      Mixin.send(:init_heir, submodule, @__mtrack__)
     end
 
     ##
@@ -118,7 +123,10 @@ module MTrack
     # inherited from the current Class.
     #
     # Returns passed +submodule+.
-    alias_method :inherited, :included
+    def inherited(submodule)
+      super
+      Mixin.send(:init_heir, submodule, @__mtrack__)
+    end
 
     ##
     # call-seq:
@@ -129,6 +137,7 @@ module MTrack
     #
     # Returns passed +name+.
     def method_added(name)
+      super
       @__mtrack__.delete_undefined name
     end
 
@@ -140,6 +149,7 @@ module MTrack
     #
     # Returns passed +name+.
     def method_removed(name)
+      super
       @__mtrack__.delete_tracked name
     end
 
@@ -153,6 +163,7 @@ module MTrack
     #
     # Returns passed +name+.
     def method_undefined(name)
+      super
       @__mtrack__.delete_tracked name
       @__mtrack__.add_undefined name
     end
