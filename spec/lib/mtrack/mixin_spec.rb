@@ -28,6 +28,7 @@ describe MTrack::Mixin do
       Module.new.tap do |m|
         m.module_eval do
           include MTrack::Mixin
+          define_method :base_extension_1_meth, METHOD_DEFINITION
         end
       end
     end
@@ -36,6 +37,7 @@ describe MTrack::Mixin do
       Module.new.tap do |m|
         m.module_eval do
           include MTrack::Mixin
+          define_method :base_extension_2_meth, METHOD_DEFINITION
         end
       end
     end
@@ -45,6 +47,7 @@ describe MTrack::Mixin do
       Module.new.tap do |m|
         m.module_eval do
           include be
+          define_method :sub_extension_meth, METHOD_DEFINITION
         end
       end
     end
@@ -188,7 +191,7 @@ describe MTrack::Mixin do
       end
 
       it "has custom extensions as ancestors" do
-        expect(subject.singleton_class.ancestors).to include(base_extension_1, sub_extension)
+        expect(subject.singleton_methods.map(&:to_sym)).to include(:base_extension_1_meth, :sub_extension_meth)
       end
     end
 
@@ -216,7 +219,7 @@ describe MTrack::Mixin do
       end
 
       it "has custom extensions as ancestors" do
-        expect(subject.singleton_class.ancestors).to include(base_extension_2)
+        expect(subject.singleton_methods.map(&:to_sym)).to include(:base_extension_2_meth)
       end
     end
 
