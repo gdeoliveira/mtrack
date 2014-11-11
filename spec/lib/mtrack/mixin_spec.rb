@@ -24,10 +24,36 @@ describe MTrack::Mixin do
   end
 
   describe "hierarchy" do
-    let(:base_module_1) do
+    let(:base_extension_1) do
       Module.new.tap do |m|
         m.module_eval do
-          extend MTrack::Mixin
+          include MTrack::Mixin
+        end
+      end
+    end
+
+    let(:base_extension_2) do
+      Module.new.tap do |m|
+        m.module_eval do
+          include MTrack::Mixin
+        end
+      end
+    end
+
+    let(:sub_extension) do
+      be = base_extension_1
+      Module.new.tap do |m|
+        m.module_eval do
+          include be
+        end
+      end
+    end
+
+    let(:base_module_1) do
+      ext = sub_extension
+      Module.new.tap do |m|
+        m.module_eval do
+          extend ext
           define_method :unt_1, METHOD_DEFINITION
           track_methods { define_method :meth, METHOD_DEFINITION }
           track_methods :numbers do
@@ -40,9 +66,10 @@ describe MTrack::Mixin do
     end
 
     let(:base_module_2) do
+      ext = base_extension_2
       Module.new.tap do |m|
         m.module_eval do
-          extend MTrack::Mixin
+          extend ext
           define_method :unt_2, METHOD_DEFINITION
           track_methods { define_method :meth, METHOD_DEFINITION }
           track_methods :numbers do
@@ -159,6 +186,10 @@ describe MTrack::Mixin do
         subject.module_eval { define_method :meth, METHOD_DEFINITION }
         expect(subject.tracked_methods).to be_empty
       end
+
+      it "has custom extensions as ancestors" do
+        expect(subject.singleton_class.ancestors).to include(base_extension_1, sub_extension)
+      end
     end
 
     context "base module 2" do
@@ -182,6 +213,10 @@ describe MTrack::Mixin do
 
         subject.module_eval { define_method :meth, METHOD_DEFINITION }
         expect(subject.tracked_methods).to be_empty
+      end
+
+      it "has custom extensions as ancestors" do
+        expect(subject.singleton_class.ancestors).to include(base_extension_2)
       end
     end
 

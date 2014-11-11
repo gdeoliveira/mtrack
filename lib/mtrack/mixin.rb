@@ -1,3 +1,4 @@
+require "mtrack/extension"
 require "mtrack/state"
 
 module MTrack
@@ -6,21 +7,10 @@ module MTrack
   # extend it. It also enables the extended Class or Module to pass tracked
   # methods to its subclasses and submodules.
   module Mixin
+    extend Extension
+
     class << self
       private
-
-      ##
-      # call-seq:
-      #   extended(submodule) => submodule
-      #
-      # Initializes a State variable on the Class or Module that extended Mixin.
-      #
-      # Returns passed +submodule+.
-      def extended(submodule)
-        super
-        submodule.instance_eval { @__mtrack__ ||= State.new }
-        submodule
-      end
 
       ##
       # call-seq:
