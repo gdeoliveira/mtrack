@@ -1,5 +1,7 @@
 Metrics/LineLength:
   Max: 120
+Style/AndOr:
+  EnforcedStyle: conditionals
 Style/HashSyntax:
   EnforcedStyle: hash_rockets
 Style/SpaceInsideBlockBraces:
