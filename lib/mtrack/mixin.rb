@@ -36,7 +36,7 @@ module MTrack
       #
       # Returns a set with the result.
       def newly_defined_methods(mod, old_methods)
-        (mod.public_instance_methods(false) - old_methods).map(&:to_sym).to_set
+        (mod.public_instance_methods(false) - old_methods).to_set
       end
 
       ##
@@ -75,8 +75,6 @@ module MTrack
         tracked
       end
     end
-
-    public
 
     ##
     # call-seq:

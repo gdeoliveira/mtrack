@@ -6,9 +6,9 @@ describe MTrack::Mixin do
   describe "#track_methods" do
     it "is added after extending #{described_class}" do
       mod = ::Module.new
-      expect(mod.private_methods.map(&:to_sym)).not_to include(:track_methods)
+      expect(mod.private_methods).not_to include(:track_methods)
       mod.module_eval { extend MTrack::Mixin }
-      expect(mod.private_methods.map(&:to_sym)).to include(:track_methods)
+      expect(mod.private_methods).to include(:track_methods)
     end
 
     context "no block given" do
@@ -191,7 +191,7 @@ describe MTrack::Mixin do
       end
 
       it "has custom extensions as ancestors" do
-        expect(subject.singleton_methods.map(&:to_sym)).to include(:base_extension_1_meth, :sub_extension_meth)
+        expect(subject.singleton_methods).to include(:base_extension_1_meth, :sub_extension_meth)
       end
     end
 
@@ -219,7 +219,7 @@ describe MTrack::Mixin do
       end
 
       it "has custom extensions as ancestors" do
-        expect(subject.singleton_methods.map(&:to_sym)).to include(:base_extension_2_meth)
+        expect(subject.singleton_methods).to include(:base_extension_2_meth)
       end
     end
 
@@ -395,7 +395,7 @@ describe MTrack::Mixin do
             end
           end.to raise_error(RuntimeError, "Unexpected error")
 
-          expect(m.public_instance_methods(false).map(&:to_sym)).to match_array([:meth_1, :meth_2])
+          expect(m.public_instance_methods(false)).to match_array([:meth_1, :meth_2])
           expect(m.tracked_methods).to match_array([:meth_1, :meth_2])
         end
       end
@@ -415,7 +415,7 @@ describe MTrack::Mixin do
             end
           end.to raise_error(RuntimeError, "Unexpected error")
 
-          expect(c.public_instance_methods(false).map(&:to_sym)).to match_array([:meth_1, :meth_2])
+          expect(c.public_instance_methods(false)).to match_array([:meth_1, :meth_2])
           expect(c.tracked_methods).to match_array([:meth_1, :meth_2])
         end
       end
