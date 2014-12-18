@@ -20,5 +20,5 @@
 #   D.tracked_methods  #=> #<Set: {:method_1, :method_2, :method_3}>
 module MTrack
   # Current version of MTrack.
-  VERSION = "1.1.2"
+  VERSION = "2.0.0"
 end
