@@ -13,9 +13,8 @@
 [gemnasium]: https://gemnasium.com/gdeoliveira/mtrack#development-dependencies
 [inch-ci]: http://inch-ci.org/github/gdeoliveira/mtrack
 
-MTrack extends the functionality of Modules and Classes and enables them to
-define public methods within groups. These methods can then be queried back even
-through a hierarchy of inclusion and/or inheritance.
+MTrack extends the functionality of Modules and Classes and enables them to define public methods within groups. These
+methods can then be queried back even through a hierarchy of inclusion and/or inheritance.
 
 ## Installation
 
@@ -105,8 +104,7 @@ MySubClass.tracked_methods :integers  #=> #<Set: {:one, :three, :two, :four}>
 
 ### Simple State Machine
 
-We'll create a simple state machine using MTrack. First, let's create an
-abstraction for the state machine.
+We'll create a simple state machine using MTrack. First, let's create an abstraction for the state machine.
 
 ```ruby
 require "mtrack"
