@@ -14,19 +14,11 @@ task :console do
     end
   end
 
-  if RUBY_VERSION >= "1.9"
-    begin
-      require "pry"
-    rescue LoadError
-      require "irb"
-    end
-  else
-    require "irb"
-  end
-
-  if defined? Pry
+  begin
+    require "pry"
     Pry.start
-  else
+  rescue LoadError
+    require "irb"
     ARGV.clear
     IRB.start
   end
