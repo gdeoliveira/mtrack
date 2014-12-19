@@ -19,5 +19,5 @@ methods can then be queried back even through a hierarchy of inclusion and/or in
   spec.files = `git ls-files -z`.split("\x0")
   spec.test_files = spec.files.grep(/^(test|spec|features)\//)
   spec.require_paths = ["lib"]
-  spec.rdoc_options << "--main=MTrack"
+  spec.rdoc_options << "--title=MTrack"
 end
