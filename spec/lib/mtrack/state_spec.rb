@@ -2,13 +2,13 @@ require "spec_helper"
 
 describe MTrack::State do
   let(:sample_group) do
-    { :con_1 => { :tracked => [:trk_1, :trk_2] },
-      :con_2 => { :tracked => [:trk_2, :trk_3] }
+    { con_1: { tracked: [:trk_1, :trk_2] },
+      con_2: { tracked: [:trk_2, :trk_3] }
     }
   end
   let(:sample_group_2) do
-    { :con_2 => { :tracked => [:trk_3, :trk_4] },
-      :con_3 => { :tracked => [:trk_4, :trk_5] }
+    { con_2: { tracked: [:trk_3, :trk_4] },
+      con_3: { tracked: [:trk_4, :trk_5] }
     }
   end
 
