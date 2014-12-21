@@ -118,15 +118,15 @@ class SimpleStateMachine
     alias_method :allow_while, :track_methods
 
     def actions(transitions)
-      transitions.each do |action, state|
-        define_method action, transition_implementation(action, state)
+      transitions.each do |action, new_state|
+        define_method action, transition_implementation(action, new_state)
       end
     end
 
     def transition_implementation(action, new_state)
       proc do
-        if self.class.tracked_methods(state).include? action
-          self.state = new_state
+        if self.class.tracked_methods(current_state).include? action
+          self.current_state = new_state
           state_changed action
         else
           state_not_changed action
@@ -136,12 +136,12 @@ class SimpleStateMachine
   end
 
   def initialize(state)
-    self.state = state
+    self.current_state = state
   end
 
   private
 
-  attr_accessor :state
+  attr_accessor :current_state
 end
 ```
 
@@ -153,12 +153,12 @@ class Box < SimpleStateMachine
     super :locked
   end
 
-  allow_while(:locked) { actions :unlock => :closed }
-  allow_while(:closed) { actions :lock => :locked, :open => :open }
-  allow_while(:open) { actions :close => :closed }
+  allow_while(:locked) { actions unlock: :closed }
+  allow_while(:closed) { actions lock: :locked, open: :open }
+  allow_while(:open) { actions close: :closed }
 
   def look
-    "The box is #{state}."
+    "The box is #{current_state}."
   end
 
   private
@@ -168,7 +168,7 @@ class Box < SimpleStateMachine
   end
 
   def state_not_changed(action)
-    "You can't #{action} the box while it is #{state}!"
+    "You can't #{action} the box while it is #{current_state}!"
   end
 end
 ```
