@@ -36,7 +36,7 @@ module MTrack
       #
       # Returns a set with the result.
       def newly_defined_methods(mod, old_methods)
-        (mod.public_instance_methods(false) - old_methods).to_set
+        (mod.instance_methods(false) + mod.private_instance_methods(false) - old_methods).to_set
       end
 
       ##
@@ -63,7 +63,7 @@ module MTrack
       #
       # Returns a set containing the methods that were defined within the block.
       def track_methods_for(mod, group_name, &b)
-        old_methods = mod.public_instance_methods false
+        old_methods = mod.instance_methods(false) + mod.private_instance_methods(false)
 
         begin
           mod.module_eval(&b) if block_given?

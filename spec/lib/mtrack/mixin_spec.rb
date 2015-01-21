@@ -64,6 +64,12 @@ describe MTrack::Mixin do
             track_methods(:even) { define_method :two, METHOD_DEFINITION }
           end
           define_method :unt_2, METHOD_DEFINITION
+
+          track_methods :visibility do
+            public # rubocop:disable Style/EmptyLinesAroundAccessModifier
+
+            define_method :my_public, METHOD_DEFINITION
+          end
         end
       end
     end
@@ -80,6 +86,12 @@ describe MTrack::Mixin do
             track_methods(:odd) { define_method :three, METHOD_DEFINITION }
           end
           define_method :unt_3, METHOD_DEFINITION
+
+          track_methods :visibility do
+            protected # rubocop:disable Style/EmptyLinesAroundAccessModifier
+
+            define_method :my_protected, METHOD_DEFINITION
+          end
         end
       end
     end
@@ -95,6 +107,12 @@ describe MTrack::Mixin do
             track_methods(:even) { define_method :four, METHOD_DEFINITION }
           end
           define_method :unt_4, METHOD_DEFINITION
+
+          track_methods :visibility do
+            private # rubocop:disable Style/EmptyLinesAroundAccessModifier
+
+            define_method :my_private, METHOD_DEFINITION
+          end
         end
       end
     end
@@ -175,6 +193,7 @@ describe MTrack::Mixin do
         expect(subject.tracked_methods(:numbers)).to match_array([:one, :two])
         expect(subject.tracked_methods(:odd)).to match_array([:one])
         expect(subject.tracked_methods(:even)).to match_array([:two])
+        expect(subject.tracked_methods(:visibility)).to match_array([:my_public])
       end
 
       it "untracks removed methods" do
@@ -203,6 +222,7 @@ describe MTrack::Mixin do
         expect(subject.tracked_methods(:numbers)).to match_array([:two, :three])
         expect(subject.tracked_methods(:even)).to match_array([:two])
         expect(subject.tracked_methods(:odd)).to match_array([:three])
+        expect(subject.tracked_methods(:visibility)).to match_array([:my_protected])
       end
 
       it "untracks removed methods" do
@@ -231,6 +251,7 @@ describe MTrack::Mixin do
         expect(subject.tracked_methods(:numbers)).to match_array([:three, :four])
         expect(subject.tracked_methods(:odd)).to match_array([:three])
         expect(subject.tracked_methods(:even)).to match_array([:four])
+        expect(subject.tracked_methods(:visibility)).to match_array([:my_private])
       end
 
       it "untracks removed methods" do
@@ -255,6 +276,7 @@ describe MTrack::Mixin do
         expect(subject.tracked_methods(:numbers)).to match_array([:one, :two, :three, :four, :five])
         expect(subject.tracked_methods(:odd)).to match_array([:one, :three, :five])
         expect(subject.tracked_methods(:even)).to match_array([:two, :four])
+        expect(subject.tracked_methods(:visibility)).to match_array([:my_public, :my_protected])
       end
 
       it "untracks removed methods" do
@@ -285,6 +307,7 @@ describe MTrack::Mixin do
         expect(subject.tracked_methods(:numbers)).to match_array([:three, :four, :five, :six])
         expect(subject.tracked_methods(:odd)).to match_array([:three, :five])
         expect(subject.tracked_methods(:even)).to match_array([:four, :six])
+        expect(subject.tracked_methods(:visibility)).to match_array([:my_private])
       end
 
       it "untracks removed methods" do
@@ -312,6 +335,7 @@ describe MTrack::Mixin do
         expect(subject.tracked_methods(:numbers)).to match_array([:one, :two, :three, :four, :five, :six, :seven])
         expect(subject.tracked_methods(:odd)).to match_array([:one, :three, :five, :seven])
         expect(subject.tracked_methods(:even)).to match_array([:two, :four, :six])
+        expect(subject.tracked_methods(:visibility)).to match_array([:my_public, :my_protected])
       end
 
       it "untracks removed methods" do
@@ -345,6 +369,7 @@ describe MTrack::Mixin do
         expect(subject.tracked_methods(:numbers)).to match_array([:one, :two, :three, :four, :five, :six, :seven, :eight])
         expect(subject.tracked_methods(:odd)).to match_array([:one, :three, :five, :seven])
         expect(subject.tracked_methods(:even)).to match_array([:two, :four, :six, :eight])
+        expect(subject.tracked_methods(:visibility)).to match_array([:my_public, :my_protected, :my_private])
       end
 
       it "untracks removed methods" do
