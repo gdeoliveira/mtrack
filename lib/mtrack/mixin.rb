@@ -31,8 +31,7 @@ module MTrack
       # call-seq:
       #   newly_defined_methods(mod, old_methods) => set
       #
-      # Calculates the difference between +mod+'s currently defined public
-      # methods and +old_methods+.
+      # Calculates the difference between +mod+'s currently defined methods and +old_methods+.
       #
       # Returns a set with the result.
       def newly_defined_methods(mod, old_methods)

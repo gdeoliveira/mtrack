@@ -1,7 +1,6 @@
 ##
-# MTrack extends the functionality of Modules and Classes and enables them to
-# define public methods within groups. These methods can then be queried back
-# even through a hierarchy of inclusion and/or inheritance.
+# MTrack extends the functionality of Modules and Classes and enables them to define methods within groups. These
+# methods can then be queried back even through a hierarchy of inclusion and/or inheritance.
 #
 #   module M
 #     extend MTrack::Mixin
